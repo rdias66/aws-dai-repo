@@ -1,7 +1,6 @@
 
-# More info on official AWS documentation, AWS Management Console, and Terraform provider documentation(OpenTofu in our case)
 variable "rds_monitoring_role_policy_arn" {
-  description = "ARN of the managed policy for RDS Enhanced Monitoring"
+  description = "ARN of the managed policy for RDS Enhanced Monitoring, more info on official AWS documentation, AWS Management Console, and Terraform provider documentation(OpenTofu in our case)"
   type        = string
   default     = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
 }
@@ -52,7 +51,6 @@ variable "db_user" {
   sensitive   = true  # Mark as sensitive to prevent it from being shown in logs
 }
 
-# Variable for the password used to connect to the database
 variable "db_password" {
   description = "The password for connection to be declared on production variables"
   type        = string

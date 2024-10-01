@@ -1,4 +1,3 @@
-# The output value named "address" is defined here.
 output "address" {
   value = aws_instance.ec2.*.public_dns
   description = "Returns the created instance's public DNS address"

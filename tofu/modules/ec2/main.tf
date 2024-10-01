@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
   owners = var.ami_owners  
 }
 
-# This block is used for the EC2 instance's specific resource configuration
+# Resource block for the EC2 instance's specific configuration
 resource "aws_instance" "ec2" {
   ami                         = var.ec2_ami_id
   instance_type               = var.ec2_instance_type

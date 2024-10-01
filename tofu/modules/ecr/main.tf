@@ -1,4 +1,4 @@
-# This block defines an Amazon ECR (Elastic Container Registry) repository module
+# Resource block for Amazon ECR (Elastic Container Registry) repository module
 resource "aws_ecr_repository" "ecr" {
   # The name of the ECR repository, passed as a variable.
   name                 = var.repo_name
@@ -19,7 +19,7 @@ resource "aws_ecr_repository" "ecr" {
   }
 }
 
-# This block defines the policy for the ECR repository.
+# Resource block for the policy for the ECR repository.
 resource "aws_ecr_repository_policy" "ecr_policy" {
   # Specifies the repository to which this policy will apply.
   repository = aws_ecr_repository.ecr.name
