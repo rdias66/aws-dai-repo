@@ -1,3 +1,4 @@
+# Terraform block to configure a remote backend using Amazon S3 to store and manage the Terraform state file securely.
 terraform {
   backend "s3" {
     bucket = "your-terraform-bucket"
@@ -10,10 +11,17 @@ provider "aws" {
   region = var.region
 }
 
+module "vpc" {
+  source               = "../modules/vpc"  
+  cidr_block           = var.cidr_block
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support   = var.enable_dns_support
+  vpc_name             = var.vpc_name
+}
+
 module "security_groups" {
   source = "./sg"
-
-  vpc_id = var.vpc_id
+  vpc_id = module.vpc.vpc_id
 }
 
 module "db" {
@@ -54,7 +62,7 @@ module "ec2" {
   ami_owners                      = var.ami_owners
   ec2_ami_id                      = var.ec2_ami_id
   ec2_key_name                    = var.ec2_key_name
-  ec2_vpc_id                      = var.vpc_id
+  ec2_vpc_id                      = module.vpc.vpc_id
   ec2_root_volume_type            = var.ec2_root_volume_type
   ec2_root_volume_size            = var.ec2_root_volume_size
   ec2_instance_type               = var.ec2_instance_type

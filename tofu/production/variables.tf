@@ -5,10 +5,20 @@ variable "region" {
 variable "environment" {
   type = string
 }
-variable "vpc_id" {
+
+#VPC Variables
+variable "cidr_block" {
   type = string
 }
-
+variable "enable_dns_support" {
+  type = boolean
+}
+variable "enable_dns_hostnames" {
+  type = boolean
+}
+variable "vpc_name"{
+  type = string
+}
 
 # EC2 Variables
 variable "most_recent_ami" {
