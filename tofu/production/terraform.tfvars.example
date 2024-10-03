@@ -1,1 +1,55 @@
-#This is the env file for our IaC
+# THE FILE IS CONFIGURED WITH EXAMPLE VARIABLES, PLEASE CHANGE WHATS NECESSARY TO YOUR PROJECT
+
+# General Configuration
+region = "sa-east-1" # Add your region, for brazil this is usually the choice
+environment = "production" # Add your environment (e.g., development, prodruction)
+
+# VPC Configuration
+cidr_block = "10.0.0.0/16" # Add your CIDR block
+enable_dns_support = true # Set this to true or false
+enable_dns_hostnames = true # Set this to true or false
+vpc_name = "my-vpc" # Add your VPC name
+
+# EC2 Configuration
+most_recent_ami = true # Set this to true to use the most recent AMI
+ami_name_pattern = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*" # Pattern for the AMI name, usually this is the value for free tier
+virtualization_type = "hvm" # e.g., hvm or paravirtual
+ami_owners = ["099720109477"] # List of AMI owners, for this setup the owner usually is Canonical, thats their value
+ec2_ami_id = "ami-080111c1449900431" # Add the AMI ID, the latest ami id i used, if youd like you could check in aws console for other options
+ec2_instance_type = "t2.micro" # Add the EC2 instance type , t2.micro is a good choice for free tier
+ec2_key_name = "your-app-ec2-key" # Add the EC2 key pair name, this is your choice, this key will be your .pem credential for ssh conection into the instance
+ec2_associate_public_ip_address = true # Set to true or false based on public IP needs
+ec2_root_volume_size = 30 # Specify root volume size (in GB) , 30 is the current limit for free tier
+ec2_root_volume_type = "gp2" # Add root volume type (e.g., gp2, gp3)
+ec2_tag_platform = "Your-app-ec2-vm" # Add a tag for the EC2 platform
+
+# RDS Configuration
+db_allocated_storage = 15 # Add allocated storage (in GB), 15 is max for free tier
+db_max_allocated_storage = 20 # Add maximum allocated storage (in GB), 20 is max for free tier
+db_engine = "postgres" # Your db service of choice, for this i chose postgres, rds only supports relational databases, so if you want something like mongo, id recommend running it in a separate container in your ec2 instance, or even a new ec2 instance.
+db_engine_version = "16.3" # Related to your db of choice, its up to your needs
+db_parameter_group_name = "default.postgres16" # Add parameter group name if any
+db_instance_class = "db.t3.micro" # Add your instance classs, this is a good choice for free tier
+db_user = "postgres" # Add your database username
+db_password = "password" # Add your database password
+db_database = "my-app-db" # Add your database name
+db_port = 5432 # Add your database port (default 5432 for PostgreSQL)
+db_backup_retention_period = 0 # Number of days to retain backups, may affect pricing
+db_monitoring_interval = 0 # Add monitoring interval (in seconds), may affect pricing
+db_multi_az = false # Set this to true if Multi-AZ deployment is required
+db_publicly_accessible = true # Set this to true or false based on public accessibility
+db_storage_type = "gp2" # e.g., gp2, io1
+db_tag_platform = "My-app-db" # Add a tag for the RDS platform
+
+# ECR Configuration
+backend_ecr_repo_name = "backend-image" # Add the ECR repository name for the backend
+frontend_ecr_repo_name = "frontend-image" # Add the ECR repository name for the frontend
+ecr_platform = "Full-Stack" # Add a platform tag for the ECR repositories
+ecr_scan_on_push = true # Set to true if image scan is required on push
+ecr_image_tag_mutability = "MUTABLE" # Set to MUTABLE or IMMUTABLE, like we will setup a CI through image updates from main branch commits, it needs to be mutable
+
+# S3 Configuration
+s3_bucket_name = "my-app-bucket" # Add S3 bucket name
+
+# Availability Zone
+availability_zone = "sa-east-1a" # Add the availability zone for resources(a to c in sa-east-1)
