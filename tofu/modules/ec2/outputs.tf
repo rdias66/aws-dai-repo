@@ -13,3 +13,7 @@ output "address" {
   
   # Outputs can be viewed after running `terraform apply`, and they can also be used in other modules
 }
+output "ec2_public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = aws_instance.ec2.public_ip
+}
