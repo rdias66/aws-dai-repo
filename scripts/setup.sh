@@ -12,7 +12,7 @@ sudo usermod -a -G sudo admin
 
 
 echo "Installing base packages"
-sudo apt install -y htop git curl unzip
+sudo apt install -y htop git curl unzip jq
 
 echo "Installing Docker"
 sudo apt install -y \
