@@ -1,7 +1,7 @@
 # Terraform block to configure a remote backend using Amazon S3 to store and manage the Terraform state file securely.
 terraform {
   backend "s3" {
-    bucket = "maqpro-iac-state-bucket"
+    bucket = "your-terraform-bucket"
     key    = "platform/terraform.tfstate"
     region = "sa-east-1"
   }
