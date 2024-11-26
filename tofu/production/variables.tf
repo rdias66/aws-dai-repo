@@ -11,10 +11,10 @@ variable "cidr_block" {
   type = string
 }
 variable "enable_dns_support" {
-  type = boolean
+  type = bool
 }
 variable "enable_dns_hostnames" {
-  type = boolean
+  type = bool
 }
 variable "vpc_name"{
   type = string
@@ -137,7 +137,7 @@ variable "ecr_platform" {
   type    = string
 }
 variable "ecr_scan_on_push" {
-  type    = boolean
+  type    = bool
 }
 variable "ecr_image_tag_mutability" {
   type    = string

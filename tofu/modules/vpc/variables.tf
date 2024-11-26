@@ -5,12 +5,12 @@ variable "cidr_block" {
 
 variable "enable_dns_support" {
   description = "Enable or disable DNS resolution within the VPC (set to true for most cases)"
-  type = boolean
+  type = bool
 }
 
 variable "enable_dns_hostnames" {
   description = "Enable or disable DNS hostnames for instances launched into the VPC"
-  type = boolean
+  type = bool
 }
 
 variable "vpc_name"{
