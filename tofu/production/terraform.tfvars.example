@@ -5,10 +5,8 @@ region = "sa-east-1" # Add your region, for brazil this is usually the choice
 environment = "production" # Add your environment (e.g., development, prodruction)
 
 # VPC Configuration
-cidr_block = "10.0.0.0/16" # Add your CIDR block
-enable_dns_support = true # Set this to true or false
-enable_dns_hostnames = true # Set this to true or false
-vpc_name = "my-vpc" # Add your VPC name
+
+vpc_id = "vpc-id" # Add your VPC Id you created directly on the console(advised due to the complexity)
 
 # EC2 Configuration
 most_recent_ami = true # Set this to true to use the most recent AMI
@@ -35,7 +33,7 @@ db_password = "password" # Add your database password
 db_database = "my-app-db" # Add your database name
 db_port = 5432 # Add your database port (default 5432 for PostgreSQL)
 db_backup_retention_period = 0 # Number of days to retain backups, may affect pricing
-db_monitoring_interval = 0 # Add monitoring interval (in seconds), may affect pricing
+db_monitoring_interval = 60 # Add monitoring interval (in seconds), may affect pricing
 db_multi_az = false # Set this to true if Multi-AZ deployment is required
 db_publicly_accessible = true # Set this to true or false based on public accessibility
 db_storage_type = "gp2" # e.g., gp2, io1

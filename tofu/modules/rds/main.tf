@@ -1,4 +1,5 @@
 # IAM Role for RDS Enhanced Monitoring , this does not affect pricing
+# IAM Role for RDS Enhanced Monitoring
 resource "aws_iam_role" "RDSMonitoringRole" {
   name               = "RDSMonitoringRole"
   assume_role_policy = jsonencode({
@@ -14,14 +15,20 @@ resource "aws_iam_role" "RDSMonitoringRole" {
     ]
   })
 
-  managed_policy_arns = [var.rds_monitoring_role_policy_arn]
-
   tags = {
     Name     = "RDS Monitoring Role"
     Platform = "Database"
     Type     = "Service"
   }
 }
+
+# Attach the AmazonRDSEnhancedMonitoringRole policy
+resource "aws_iam_role_policy_attachment" "RDSMonitoringRolePolicy" {
+  role       = aws_iam_role.RDSMonitoringRole.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+}
+
+
 # Resource block for creating an RDS database instance
 resource "aws_db_instance" "db" {
   allocated_storage                   = var.db_allocated_storage

@@ -11,17 +11,9 @@ provider "aws" {
   region = var.region
 }
 
-module "vpc" {
-  source               = "../modules/vpc"  
-  cidr_block           = var.cidr_block
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support   = var.enable_dns_support
-  vpc_name             = var.vpc_name
-}
-
 module "security_groups" {
   source = "./security-groups"
-  vpc_id = module.vpc.vpc_id
+  vpc_id = var.vpc_id
 }
 
 module "db" {
@@ -44,7 +36,7 @@ module "db" {
   db_storage_encrypted       = var.db_storage_encrypted
   db_storage_type            = var.db_storage_type
   db_tag_platform            = var.db_tag_platform
-  db_security_groups_names   = [module.security_groups.rds_sg_id]
+  db_security_groups_names   = [module.security_groups.rds_ec2_sg_id]
   availability_zone          = var.availability_zone
 }
 
@@ -62,7 +54,7 @@ module "ec2" {
   ami_owners                      = var.ami_owners
   ec2_ami_id                      = var.ec2_ami_id
   ec2_key_name                    = var.ec2_key_name
-  ec2_vpc_id                      = module.vpc.vpc_id
+  ec2_vpc_id                      = var.vpc_id
   ec2_root_volume_type            = var.ec2_root_volume_type
   ec2_root_volume_size            = var.ec2_root_volume_size
   ec2_instance_type               = var.ec2_instance_type

@@ -7,16 +7,7 @@ variable "environment" {
 }
 
 #VPC Variables
-variable "cidr_block" {
-  type = string
-}
-variable "enable_dns_support" {
-  type = bool
-}
-variable "enable_dns_hostnames" {
-  type = bool
-}
-variable "vpc_name"{
+variable "vpc_id"{
   type = string
 }
 
@@ -57,9 +48,7 @@ variable "ec2_root_volume_size" {
 
 
 # RDS Variables
-variable "rds_monitoring_role_policy_arn" {
-  type    = string
-}
+
 variable "db_allocated_storage" {
   type    = number
 }
