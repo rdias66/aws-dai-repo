@@ -45,8 +45,8 @@ echo "Setting up cron jobs for cleanup scripts"
 CRON_FILE=$(mktemp)
 
 # Update the file paths to match the admin user's folder structure
-echo "0 0 * * 6 /home/admin/aws-deploy-assist-infra/clean-docker.sh >> /home/admin/aws-deploy-assist-infra/cleaner-logs/clean-docker.log 2>&1" >> $CRON_FILE
-echo "0 0 * * 6 /home/admin/aws-deploy-assist-infra/clean-ecr.sh >> /home/admin/aws-deploy-assist-infra/cleaner-logs/clean-ecr.log 2>&1" >> $CRON_FILE
+echo "0 3 * * * sudo /home/admin/aws-deploy-assist-infra/clean-docker.sh " >> $CRON_FILE
+echo "0 4 * * * sudo -E /home/admin/aws-deploy-assist-infra/clean-ecr.sh"  >> $CRON_FILE
 
 # Install the new crontab from the temporary file
 sudo crontab $CRON_FILE
