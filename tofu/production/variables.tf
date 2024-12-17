@@ -1,4 +1,4 @@
-# Shared Variables
+# Variáveis compartilhadas
 variable "region" {
    type = string
 }
@@ -6,12 +6,12 @@ variable "environment" {
   type = string
 }
 
-#VPC Variables
+# Variáveis VPC 
 variable "vpc_id"{
   type = string
 }
 
-# EC2 Variables
+# Variáveis EC2
 variable "most_recent_ami" {
   type        = bool
 }
@@ -47,7 +47,7 @@ variable "ec2_root_volume_size" {
 }
 
 
-# RDS Variables
+# Variáveis RDS
 
 variable "db_allocated_storage" {
   type    = number
@@ -113,9 +113,9 @@ variable "db_tag_platform" {
 }
 
 
-# ECR Variables 
-# In the footprint case of this tutorial we would need two repos for our backend and frontend images respectively
-# If in your case you only need one, or need more, adjust accordingly. In this case both will be staged as production, so we will use one var.
+# Variáveis ECR
+# Na base deste repositório precisamos de dois repositorios 
+# Caso voce precise de um ou mais, ajuste de acordo seguindo o padrão.
 variable "backend_ecr_repo_name" {
   type    = string
 }
@@ -133,10 +133,9 @@ variable "ecr_image_tag_mutability" {
 }
 
 
-# S3 Related variables
+# Variáveis S3
 variable "s3_bucket_name" {
   type    = string
 }
 
-# All security group related variables will be handled directly in the main.tf file for production
-# through the security-group modules.
+# Todas as variáveis referentes aos grupos de segurança serao mockadas na main.tf atraves do modulo do security-group

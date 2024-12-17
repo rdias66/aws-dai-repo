@@ -1,4 +1,4 @@
-# Terraform block to configure a remote backend using Amazon S3 to store and manage the Terraform state file securely.
+# Bloco de configuração para arquivos de estado da IaC usando um bucket s3 que deve ser criado previamente. 
 terraform {
   backend "s3" {
     bucket = "your-terraform-bucket"
