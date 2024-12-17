@@ -1,9 +1,9 @@
 variable "environment" {
-  description = "The environment (e.g., production, development) where the S3 bucket is created."
+  description = "O ambiente (ex: produção, desenvolvimento) onde o bucket S3 será criado."
   type        = string
 }
 
 variable "s3_bucket_name" {
-  description = "The base name of the S3 bucket. This value will be combined with the environment variable to generate the full bucket name."
+  description = "O nome base do bucket S3. Este valor será combinado com a variável de ambiente para gerar o nome completo do bucket."
   type        = string
 }
