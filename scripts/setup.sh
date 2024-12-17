@@ -20,6 +20,7 @@ sudo apt install -y htop git curl unzip jq
 # Instalar Docker
 echo "Instalando Docker"
 sudo apt install -y \
+    cron \
     ca-certificates \
     curl \
     gnupg \
@@ -39,25 +40,6 @@ sudo usermod -a -G docker admin
 echo "Criando redes Docker"
 sudo docker network create backend
 sudo docker network create frontend
-
-# Configurar cron jobs para scripts de limpeza
-echo "Configurando cron jobs para scripts de limpeza"
-CRON_FILE=$(mktemp)
-
-# Atualizar os caminhos dos arquivos para corresponder à estrutura de pastas do usuário admin
-echo "0 3 * * * sudo /home/admin/aws-deploy-assist-infra/clean-docker.sh " >> $CRON_FILE
-echo "0 4 * * * sudo -E /home/admin/aws-deploy-assist-infra/clean-ecr.sh"  >> $CRON_FILE
-
-# Instalar o novo crontab a partir do arquivo temporário
-sudo crontab $CRON_FILE
-
-# Remover o arquivo temporário
-rm $CRON_FILE
-
-echo "Os cron jobs foram configurados com sucesso."
-
-sudo systemctl daemon-reload
-sudo systemctl restart cron
 
 # Instalar AWS CLI
 echo "Instalando AWS CLI"
