@@ -1,40 +1,40 @@
-# Resource block for Amazon ECR (Elastic Container Registry) repository module
+# Bloco de recurso para o módulo de repositório Amazon ECR (Elastic Container Registry)
 resource "aws_ecr_repository" "ecr" {
-  # The name of the ECR repository, passed as a variable.
+  # O nome do repositório ECR, passado como uma variável.
   name                 = var.repo_name
   
-  # Specifies the mutability of image tags, using the variable defined for it.
+  # Especifica a mutabilidade das tags de imagem, utilizando a variável definida para isso.
   image_tag_mutability = var.image_tag_mutability
 
-  # Configures image scanning on push to the repository, using the variable defined for it.
+  # Configura o escaneamento de imagens ao enviar para o repositório, utilizando a variável definida para isso.
   image_scanning_configuration {
-    scan_on_push = var.scan_on_push  # Enables or disables automatic scanning of images when they are pushed to the repository.
+    scan_on_push = var.scan_on_push  # Habilita ou desabilita o escaneamento automático de imagens quando são enviadas para o repositório.
   }
 
-  # Tags for organizational and cost-tracking purposes.
+  # Tags para fins organizacionais e de rastreamento de custos.
   tags = {
-    Name     = var.repo_name  # Sets the Name tag to the repository name.
-    Platform = var.platform    # Sets the Platform tag, indicating the environment (e.g., production, staging).
-    Type     = "Service"      # Indicates that this resource is a service.
+    Name     = var.repo_name  # Define a tag "Name" para o nome do repositório.
+    Platform = var.platform    # Define a tag "Platform", indicando o ambiente (exemplo: produção, staging).
+    Type     = "Service"      # Indica que este recurso é um serviço.
   }
 }
 
-# Resource block for the policy for the ECR repository.
+# Bloco de recurso para a política do repositório ECR.
 resource "aws_ecr_repository_policy" "ecr_policy" {
-  # Specifies the repository to which this policy will apply.
+  # Especifica o repositório ao qual esta política será aplicada.
   repository = aws_ecr_repository.ecr.name
 
-  # The policy governing access to the repository in JSON format
-  # This is the info policy that will be applied and used to manage the access in this ECR instance for the AWS's accounts IAM users
+  # A política que governa o acesso ao repositório em formato JSON
+  # Esta é a política de informações que será aplicada e usada para gerenciar o acesso nesta instância do ECR para os usuários IAM das contas AWS.
   policy = jsonencode({
-    Version : "2008-10-17",  # Specifies the version of the policy language.
+    Version : "2008-10-17",  # Especifica a versão da linguagem da política.
     Statement : [
       {
-        Sid : "ECR Repository policy",  # Statement ID for identifying the policy.
-        Effect : "Allow",               # Allows the actions specified in this policy.
-        Principal : "*",                # Applies to all principals (users and services).
+        Sid : "ECR Repository policy",  # ID da declaração para identificar a política.
+        Effect : "Allow",               # Permite as ações especificadas nesta política.
+        Principal : "*",                # Aplica-se a todos os principais (usuários e serviços).
         Action : [
-          # List of actions permitted on the ECR repository.
+          # Lista das ações permitidas no repositório ECR.
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchGetImage",
           "ecr:BatchCheckLayerAvailability",

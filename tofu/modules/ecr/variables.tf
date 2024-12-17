@@ -1,19 +1,19 @@
 variable "repo_name" {
-  description = "The name of the ECR repository. This will be used to identify the repository in AWS."
+  description = "O nome do repositório ECR. Isso será usado para identificar o repositório na AWS."
   type        = string
 }
 
 variable "platform" {
-  description = "The platform/environment associated with the ECR repository (e.g., production, staging)."
+  description = "A plataforma/ambiente associado ao repositório ECR (exemplo: produção, staging)."
   type        = string
 }
 
 variable "scan_on_push" {
-  description = "Whether to enable image scanning on push to the ECR repository. Set to true to enable."
+  description = "Se deve habilitar o escaneamento de imagens ao enviar para o repositório ECR. Defina como true para habilitar."
   type        = bool
 }
 
 variable "image_tag_mutability" {
-  description = "Specifies whether image tags can be overwritten. Use 'MUTABLE' to allow overwriting, or 'IMMUTABLE' to prevent it."
+  description = "Especifica se as tags de imagem podem ser sobrescritas. Use 'MUTABLE' para permitir sobrescrita ou 'IMMUTABLE' para impedir."
   type        = string
 }
