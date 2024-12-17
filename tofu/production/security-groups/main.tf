@@ -1,66 +1,66 @@
-// Main Security Group Configuration for AWS Infrastructure
+// Configuração principal do Security Group para a infraestrutura AWS
 
-// EC2 Security Group for inbound traffic to the instance
+// Security Group do EC2 para tráfego de entrada na instância
 resource "aws_security_group" "ec2_sg" {
   name        = var.ec2_sg_name
-  description = "Allow inbound traffic to EC2 instances"
+  description = "Permitir tráfego de entrada para instâncias EC2"
   vpc_id      = var.vpc_id
 
-  // HTTP (port 80) inbound rule
+  // Regra de entrada HTTP (porta 80)
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  // Allow access from any IP address
+    cidr_blocks = ["0.0.0.0/0"]  // Permitir acesso de qualquer endereço IP
   }
 
-  // HTTPS (port 443) inbound rule
+  // Regra de entrada HTTPS (porta 443)
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  // Allow access from any IP address
+    cidr_blocks = ["0.0.0.0/0"]  // Permitir acesso de qualquer endereço IP
   }
 
-  // SSH (port 22) inbound rule - Ideally restrict this to specific IPs in production
+  // Regra de entrada SSH (porta 22) - Idealmente restrinja isso a IPs específicos em produção
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  // Open to all, but restrict for security in real scenarios
+    cidr_blocks = ["0.0.0.0/0"]  // Aberto para todos, mas restrinja para segurança em cenários reais
   }
 
-  // Outbound traffic rule to allow all outgoing traffic
+  // Regra de tráfego de saída para permitir todo o tráfego de saída
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"  // "-1" allows all protocols
+    protocol    = "-1"  // "-1" permite todos os protocolos
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-// Security Group for EC2-RDS communication
+// Security Group para permitir comunicação entre EC2 e RDS na porta PostgreSQL (5432)
 resource "aws_security_group" "ec2_rds_sg" {
   name        = var.ec2_rds_sg_name
-  description = "Allow EC2 to communicate with RDS over PostgreSQL (port 5432)"
+  description = "Permitir que o EC2 se comunique com o RDS pela porta 5432"
   vpc_id      = var.vpc_id
 
-  // Outbound rule allowing EC2 to reach RDS on port 5432 (PostgreSQL)
+  // Regra para permitir acesso à porta do RDS (5432)
   egress {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  // Allow communication to all addresses (to be restricted in real setups)
+    cidr_blocks = ["0.0.0.0/0"]  // Permitir acesso de qualquer IP (disponibilidade para nosso domínio público)
   }
 }
 
-// Security Group for RDS inbound traffic (from EC2)
+// Security Group para permitir o envio de dados do RDS para o EC2
 resource "aws_security_group" "rds_ec2_sg" {
   name        = var.rds_ec2_sg_name
-  description = "Allow inbound PostgreSQL traffic for RDS from EC2 instances"
+  description = "Permitir tráfego de entrada PostgreSQL para o RDS vindo de instâncias EC2"
   vpc_id      = var.vpc_id
 
-  // Outbound traffic rule to allow all outgoing traffic
+  // Regra para permitir saída de dados
   egress {
     from_port   = 0
     to_port     = 0
@@ -69,7 +69,7 @@ resource "aws_security_group" "rds_ec2_sg" {
   }
 }
 
-// Rule to allow EC2 to communicate with RDS
+// Regra para permitir que o EC2 envie tráfego para o RDS
 resource "aws_security_group_rule" "ec2_to_rds" {
   type                     = "egress"
   from_port                = 5432
@@ -77,10 +77,10 @@ resource "aws_security_group_rule" "ec2_to_rds" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.ec2_rds_sg.id
   source_security_group_id = aws_security_group.ec2_sg.id
-  description              = "Allow EC2 instances to communicate with RDS over port 5432"
+  description              = "Permitir que instâncias EC2 se comuniquem com o RDS na porta 5432"
 }
 
-// Rule to allow RDS to accept traffic from EC2
+// Regra para permitir que o RDS aceite tráfego vindo do EC2
 resource "aws_security_group_rule" "rds_from_ec2" {
   type                     = "ingress"
   from_port                = 5432
@@ -88,5 +88,5 @@ resource "aws_security_group_rule" "rds_from_ec2" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.rds_ec2_sg.id
   source_security_group_id = aws_security_group.ec2_rds_sg.id
-  description              = "Allow RDS to accept traffic from EC2 over port 5432"
+  description              = "Permitir que o RDS aceite tráfego vindo do EC2 na porta 5432"
 }

@@ -1,26 +1,26 @@
-// Variable for the VPC ID where the security groups will be created
+// Variável para o ID da VPC onde os Security Groups serão criados
 variable "vpc_id" {
-  description = "The ID of the VPC to associate the security groups with"
+  description = "O ID da VPC a ser associado aos Security Groups"
   type        = string
 }
 
-// Variable for the EC2 security group name
+// Variável para o nome do Security Group do EC2
 variable "ec2_sg_name" {
-  description = "The name for the EC2 security group"
+  description = "O nome do Security Group para o EC2"
   type        = string
   default     = "ec2-sg"
 }
 
-// Variable for the EC2-RDS security group name
+// Variável para o nome do Security Group EC2-RDS
 variable "ec2_rds_sg_name" {
-  description = "The name for the EC2-RDS security group"
+  description = "O nome do Security Group para EC2-RDS"
   type        = string
   default     = "ec2-rds-sg"
 }
 
-// Variable for the RDS security group name
+// Variável para o nome do Security Group do RDS
 variable "rds_ec2_sg_name" {
-  description = "The name for the RDS security group"
+  description = "O nome do Security Group para o RDS"
   type        = string
   default     = "rds-ec2-sg"
 }
