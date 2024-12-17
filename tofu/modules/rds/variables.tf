@@ -1,110 +1,109 @@
-
 variable "rds_monitoring_role_policy_arn" {
-  description = "ARN of the managed policy for RDS Enhanced Monitoring, more info on official AWS documentation, AWS Management Console, and Terraform provider documentation(OpenTofu in our case)"
+  description = "ARN da política gerenciada para Monitoramento Avançado do RDS, mais informações na documentação oficial da AWS, Console de Gerenciamento da AWS e na documentação do provedor Terraform (OpenTofu no nosso caso)"
   type        = string
   default     = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
 }
 
 variable "environment" {
-  description = "The environment of the deployment(e.g., dev, staging, production)"
+  description = "O ambiente de implantação (por exemplo, dev, staging, produção)"
   type        = string
 }
 
 variable "availability_zone" {
-  description = "Defines the AWS availability zone for the RDS instance, this will be the same var for the entire IaC"
-  type = string
+  description = "Define a zona de disponibilidade da AWS para a instância RDS, esta será a mesma variável para todo o IaC"
+  type        = string
 }
 
 variable "db_allocated_storage" {
-  description = "The amount of storage (in gigabytes) to be initially allocated for the database, important to check limits for free tier if thats your goal"
+  description = "A quantidade de armazenamento (em gigabytes) a ser alocada inicialmente para o banco de dados, importante verificar os limites para o nível gratuito se esse for o objetivo"
   type        = number
 }
 
 variable "db_max_allocated_storage" {
-  description = "The maximum amount of storage (in gigabytes) that can be allocated for the database"
+  description = "A quantidade máxima de armazenamento (em gigabytes) que pode ser alocada para o banco de dados"
   type        = number
 }
 
 variable "db_engine" {
-  description = "Species the database engine (e.g., mysql, postgres)"
+  description = "Especifica o mecanismo do banco de dados (por exemplo, mysql, postgres)"
   type        = string
 }
 
 variable "db_engine_version" {
-  description = "The version of the database engine to use"
+  description = "A versão do mecanismo do banco de dados a ser usada"
   type        = string
 }
 
 variable "db_parameter_group_name" {
-  description = "The name of the DB parameter group to associate with the instance"
+  description = "O nome do grupo de parâmetros do DB a ser associado à instância"
   type        = string
 }
 
 variable "db_instance_class" {
-  description = "The instance type of the RDS instance (e.g., db.t2.micro)"
+  description = "O tipo de instância da instância RDS (por exemplo, db.t2.micro)"
   type        = string
 }
 
 variable "db_user" {
-  description = "The username for connection to be declared on production variables"
+  description = "O nome de usuário para conexão a ser declarado nas variáveis de produção"
   type        = string
-  sensitive   = true  # Mark as sensitive to prevent it from being shown in logs
+  sensitive   = true  # Marcar como sensível para evitar que apareça nos logs
 }
 
 variable "db_password" {
-  description = "The password for connection to be declared on production variables"
+  description = "A senha para conexão a ser declarada nas variáveis de produção"
   type        = string
-  sensitive   = true  # Mark as sensitive to prevent it from being shown in logs
+  sensitive   = true  # Marcar como sensível para evitar que apareça nos logs
 }
 
 variable "db_port" {
-  description = "The port used for connectionto the database (default is usually 3306)"
+  description = "A porta usada para conexão ao banco de dados (o padrão geralmente é 3306)"
   type        = number
-  sensitive   = true  # Mark as sensitive to prevent it from being shown in logs
+  sensitive   = true  # Marcar como sensível para evitar que apareça nos logs
 }
 
 variable "db_database" {
-  description = "The name of the initial database to create"
+  description = "O nome do banco de dados inicial a ser criado"
   type        = string
 }
 
 variable "db_backup_retention_period" {
-  description = "The number of days to retain backups"
+  description = "O número de dias para reter backups"
   type        = number
 }
 
 variable "db_monitoring_interval" {
-  description = "The interval, in seconds, between points when Enhanced Monitoring metrics are collected, the shorter the costier, this will provide more granular data for affects pricing."
+  description = "O intervalo, em segundos, entre os pontos quando as métricas de Monitoramento Avançado são coletadas, quanto mais curto, mais caro. Isso fornecerá dados mais granulares, o que pode afetar o preço."
   type        = number
 }
 
 variable "db_multi_az" {
-  description = "Specifies if the RDS instance is multi-AZ, this will deploy the db instance in multiple availability zones, so it can increse pricing, for free tier, false is better"
+  description = "Especifica se a instância RDS é multi-AZ, isso implantará a instância do banco de dados em várias zonas de disponibilidade, o que pode aumentar o preço. Para o nível gratuito, false é melhor"
   type        = bool
 }
 
 variable "db_publicly_accessible" {
-  description = "Bool to control if instance is publicly accessible"
+  description = "Controle booleano para definir se a instância é acessível publicamente"
   type        = bool
 }
 
 variable "db_storage_encrypted" {
-  description = "Enables encryptioin at rest, this does not affect overall how you will consume and use this instance, but it can lead to price increases. If eventual cost is not a problem always set to true"
+  description = "Habilita criptografia em repouso, isso não afeta como você consumirá e usará esta instância, mas pode levar a aumentos de preço. Se o custo eventual não for um problema, sempre defina como true"
   type        = bool
-  default     = false  
+  default     = false
 }
 
 variable "db_storage_type" {
-  description = "One of 'standard', 'gp2', or 'io1', this affects the performance and price, standard is better for free tier and the following gp2 and io1 scale the performance and price relatively.(both are SSD based)"
+  description = "Um dos 'standard', 'gp2' ou 'io1', isso afeta o desempenho e o preço. Standard é melhor para o nível gratuito e os seguintes, gp2 e io1, aumentam o desempenho e o preço respectivamente. (Ambos são baseados em SSD)"
   type        = string
 }
 
 variable "db_tag_platform" {
-  description = "Tag to identify the platform"
+  description = "Tag para identificar a plataforma"
   type        = string
 }
 
 variable "db_security_groups_names" {
-  description = "A list of security group names to assign to the instance"
+  description = "Uma lista de nomes de grupos de segurança a serem atribuídos à instância"
   type        = list(string)
 }

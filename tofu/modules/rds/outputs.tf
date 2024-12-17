@@ -1,20 +1,21 @@
 output "address" {
-  description = "The address (DNS name) of the database instance, used for connection purposes."
+  description = "O endereço (nome DNS) da instância de banco de dados, usado para fins de conexão."
   value = aws_db_instance.db.address
 }
+
 output "endpoint" {
-  description = " The endpoint of the database instance, typically used in the connection string for applications."
+  description = "O endpoint da instância de banco de dados, tipicamente usado na string de conexão para aplicativos."
   value = aws_db_instance.db.endpoint
 }
 
-# Optional
+# Opcional
 output "db_instance_arn" {
-  description = "The ARN of the RDS instance for further integrations and resource management."
+  description = "O ARN da instância RDS para integrações e gerenciamento de recursos."
   value = aws_db_instance.db.arn
 }
 
-# Optional
+# Opcional
 output "db_instance_identifier" {
-  description = "The unique identifier for the RDS instance, useful for identifying the resource."
+  description = "O identificador único para a instância RDS, útil para identificar o recurso."
   value = aws_db_instance.db.id
 }

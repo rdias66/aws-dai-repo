@@ -1,5 +1,5 @@
-# IAM Role for RDS Enhanced Monitoring , this does not affect pricing
-# IAM Role for RDS Enhanced Monitoring
+# Função IAM para Monitoramento Avançado do RDS, isso não afeta o preço
+# Função IAM para Monitoramento Avançado do RDS
 resource "aws_iam_role" "RDSMonitoringRole" {
   name               = "RDSMonitoringRole"
   assume_role_policy = jsonencode({
@@ -16,20 +16,19 @@ resource "aws_iam_role" "RDSMonitoringRole" {
   })
 
   tags = {
-    Name     = "RDS Monitoring Role"
-    Platform = "Database"
-    Type     = "Service"
+    Name     = "Função de Monitoramento do RDS"
+    Platform = "Banco de Dados"
+    Type     = "Serviço"
   }
 }
 
-# Attach the AmazonRDSEnhancedMonitoringRole policy
+# Anexar a política AmazonRDSEnhancedMonitoringRole
 resource "aws_iam_role_policy_attachment" "RDSMonitoringRolePolicy" {
   role       = aws_iam_role.RDSMonitoringRole.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
 }
 
-
-# Resource block for creating an RDS database instance
+# Bloco de recurso para criar uma instância de banco de dados RDS
 resource "aws_db_instance" "db" {
   allocated_storage                   = var.db_allocated_storage
   max_allocated_storage               = var.db_max_allocated_storage
@@ -53,8 +52,8 @@ resource "aws_db_instance" "db" {
   iam_database_authentication_enabled = true
   availability_zone                   = var.availability_zone
   tags = {
-    Name     = "DB"                  # Tag for identifying the database instance
-    Platform = var.db_tag_platform    # Tag for platform identification
-    Type     = "Service"              # Type tag for resource classification
+    Name     = "DB"                  # Tag para identificar a instância de banco de dados
+    Platform = var.db_tag_platform    # Tag para identificação da plataforma
+    Type     = "Serviço"              # Tag de tipo para classificação do recurso
   }
 }
