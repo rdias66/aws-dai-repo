@@ -9,14 +9,14 @@ log() {
   echo "$1" | tee -a "$LOG_FILE"
 }
 
-log "Starting Docker cleanup script..."
+log "Iniciando limpeza Docker..."
 
-log "Cleaning up stopped Docker containers..."
+log "Limpando containers Docker nao usados ou parados..."
 CONTAINER_PRUNE_OUTPUT=$(docker container prune -f 2>&1)
 log "$CONTAINER_PRUNE_OUTPUT"
 
-log "Cleaning up unused Docker images..."
+log "Limpando imagens Docker nao usadas..."
 IMAGE_PRUNE_OUTPUT=$(docker image prune -a -f 2>&1)
 log "$IMAGE_PRUNE_OUTPUT"
 
-log "Docker cleanup script finished."
+log "Limpeza do dDocker finalizada"
