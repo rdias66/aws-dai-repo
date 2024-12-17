@@ -1,71 +1,70 @@
-
 variable "most_recent_ami" {
-  description = "Set to true to get the most recent AMI that matches the specified filters."
+  description = "Defina como verdadeiro para obter a AMI mais recente que corresponda aos filtros especificados."
   type        = bool
 }
 
 variable "ami_name_pattern" {
-  description = "The pattern used to match the AMI name (e.g., for Ubuntu 22.04). Modify this to change the operating system or version."
+  description = "O padrão usado para corresponder ao nome da AMI (por exemplo, para Ubuntu 22.04). Modifique isso para alterar o sistema operacional ou a versão."
   type        = string
 }
 
 variable "virtualization_type" {
-  description = "Specifies the virtualization type for the AMI (e.g., hvm or paravirtual). HVM is typically used for modern instances."
+  description = "Especifica o tipo de virtualização para a AMI (por exemplo, hvm ou paravirtual). HVM é normalmente usado para instâncias modernas."
   type        = string
 }
 
 variable "ami_owners" {
-  description = "A list of AWS account IDs that own the AMI. By default, it uses Canonical's ID for official Ubuntu AMIs. You can modify this to use custom or third-party AMIs."
+  description = "Uma lista de IDs de contas AWS que possuem a AMI. Por padrão, usa o ID da Canonical para AMIs oficiais do Ubuntu. Você pode modificar isso para usar AMIs personalizadas ou de terceiros."
   type        = list(string)
   default = [ "hvm" ]
 }
 
 variable "ec2_ami_id" {
-  description = "The Amazon Machine Image (AMI) ID used to launch the EC2 instance. An AMI is a pre-configured template that contains the operating system and other software necessary to run the instance. (e.g., Ubuntu Server 22.04 LTS' for Linux-based environments)"
+  description = "O ID da Amazon Machine Image (AMI) usado para iniciar a instância EC2. Uma AMI é um modelo pré-configurado que contém o sistema operacional e outros softwares necessários para executar a instância. (por exemplo, 'Ubuntu Server 22.04 LTS' para ambientes baseados em Linux)"
   type        = string
 }
 
 variable "ec2_instance_type" {
-  description = "Hardware config for EC2 instance. This specifies the amount of CPU , RAM and network performance. Common types include 't2.micro' (free tier, small workloads) and 't3.medium' (general purpose, moderate workloads)."
+  description = "Configuração de hardware para a instância EC2. Isso especifica a quantidade de CPU, RAM e desempenho de rede. Tipos comuns incluem 't2.micro' (nível gratuito, cargas de trabalho pequenas) e 't3.medium' (uso geral, cargas de trabalho moderadas)."
   type        = string
 }
 
 variable "ec2_vpc_id" {
-  description = "VPC(Virtual Private Cloud) ID where the EC2 instance will be deployed, this is a isolated networkd of sorts where all of our resources will be conected to, making them able to communicate with each other(more on this in the security groups part)"
+  description = "ID da VPC (Virtual Private Cloud) onde a instância EC2 será implantada. Esta é uma rede isolada onde todos os nossos recursos estarão conectados, permitindo que se comuniquem entre si (mais sobre isso na parte dos grupos de segurança)."
   type        = string
 }
 
 variable "ec2_key_name" {
-  description = "The key name for SSH Key Pair authentication, this will be used mostly for ssh conections into your EC2 instance, this will generate a .pem file later on that must be saved in a secure spot"
+  description = "O nome da chave para autenticação SSH Key Pair, será usado principalmente para conexões SSH na sua instância EC2, gerando um arquivo .pem que deve ser salvo em um local seguro."
   type        = string
 }
 
 variable "availability_zone" {
-  description = "The availability zone in which to launch the EC2 instance (e.g., us-east-1a , sa-east-1)"
+  description = "A zona de disponibilidade na qual lançar a instância EC2 (por exemplo, us-east-1a, sa-east-1)"
   type        = string
 }
 
 variable "ec2_associate_public_ip_address" {
-  description = "Boolean flag to associate a public IP address with the EC2 instance, will be used on the domain configuration later on"
+  description = "Flag booleana para associar um endereço IP público à instância EC2, será usado na configuração do domínio posteriormente."
   type        = bool
 }
 
 variable "ec2_security_groups_ids" {
-  description = "List of security group IDs to attach to the EC2 instance, this will configure what types of connections and permissions will be available for our instance."
+  description = "Lista de IDs de grupos de segurança a serem associados à instância EC2, configurando os tipos de conexões e permissões disponíveis para nossa instância."
   type        = list(string)
 }
 
 variable "ec2_root_volume_size" {
-  description = "Size of the EC2 root volume in GB"
+  description = "Tamanho do volume raiz da instância EC2 em GB"
   type        = number
 }
 
 variable "ec2_root_volume_type" {
-  description = "The type of the root volume (e.g., gp2, io1)"
+  description = "O tipo do volume raiz (por exemplo, gp2, io1)"
   type        = string
 }
 
 variable "ec2_tag_platform" {
-  description = "Tag to identify the platform of the EC2 instance (e.g., Linux/Ubuntu)"
+  description = "Tag para identificar a plataforma da instância EC2 (por exemplo, Linux/Ubuntu)"
   type        = string
 }

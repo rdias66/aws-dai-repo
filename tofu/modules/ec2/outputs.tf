@@ -1,19 +1,20 @@
 output "address" {
   value = aws_instance.ec2.*.public_dns
-  description = "Returns the created instance's public DNS address"
-  # The "value" attribute specifies what will be returned as part of the output.
-  # In this case, it's using the AWS EC2 instance resource named "ec2".
-  # The ".*" syntax is used to retrieve the public DNS names of all EC2 instances created.
+  description = "Retorna o endereço DNS público da instância criada"
+  # O atributo "value" especifica o que será retornado como parte da saída.
+  # Neste caso, está usando o recurso da instância EC2 da AWS chamado "ec2".
+  # A sintaxe ".*" é usada para recuperar os nomes DNS públicos de todas as instâncias EC2 criadas.
   
-  # "public_dns" provides the public DNS address for each EC2 instance.
-  # This is especially useful for accessing your EC2 instances over the internet.
+  # "public_dns" fornece o endereço DNS público para cada instância EC2.
+  # Isso é especialmente útil para acessar suas instâncias EC2 pela internet.
   
-  # If you have multiple instances, this will return a list of their public DNS addresses.
-  # If there is only one instance, it will return that instance's public DNS address as a single item.
+  # Se você tiver várias instâncias, isso retornará uma lista de seus endereços DNS públicos.
+  # Se houver apenas uma instância, retornará o endereço DNS público dessa instância como um único item.
   
-  # Outputs can be viewed after running `terraform apply`, and they can also be used in other modules
+  # As saídas podem ser visualizadas após executar `terraform apply`, e também podem ser usadas em outros módulos
 }
+
 output "ec2_public_ip" {
-  description = "Public IP address of the EC2 instance"
+  description = "Endereço IP público da instância EC2"
   value       = aws_instance.ec2.public_ip
 }

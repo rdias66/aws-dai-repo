@@ -1,4 +1,4 @@
-# Resource block for the EC2 instance's specific configuration
+# Bloco de recurso para a configuração específica da instância EC2
 resource "aws_instance" "ec2" {
   ami                         = var.ec2_ami_id
   instance_type               = var.ec2_instance_type
@@ -24,4 +24,4 @@ resource "aws_instance" "ec2" {
   }
 }
 
-# Output the private key if needed for later use (e.g., SSH access)
+# Exibe a chave privada, se necessário, para uso posterior (exemplo: acesso SSH)
