@@ -6,19 +6,13 @@ services:
     image: nginx:1.23.4-alpine
     restart: unless-stopped
     volumes:
-    # The certs should be put in the specified folder, in this tutorial we will be generating them through Cloudflare, but 
-    # if you have another method you prefer to use, make sure to put the certs in said folder so they can get copied into the container.
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/certs:/etc/nginx/certs
       - /var/log/nginx:/var/log/nginx
     networks:
-    # These networks will be created according to the needs of your app. You could add as many as you might need.
-    # Later on, the necessary attachments regarding our containers will be connected to their respective networks.
-    # The networks are going to be created by the bootstrap-vm script.
       - backend
       - frontend
     ports:
-    # Exposes the respective ports in the VM(or device that runs the container) to the container's port.
       - "80:80"
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
