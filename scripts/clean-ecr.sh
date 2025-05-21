@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REGION="sa-east-1"
-REPOSITORIES=("repo_name1" "repo_name2") # Mude para os nomes dos repositórios criados no seu módulo de produção
+REPOSITORIES=("repo_name1" "repo_name2") # nomes gerados pro respectivos repos
 
 LOG_DIR="./cleaner-logs"
 LOG_FILE="$LOG_DIR/clean-ecr-$(date +'%Y-%m-%d_%H-%M-%S').log"
@@ -15,21 +15,18 @@ log() {
 for REPO_NAME in "${REPOSITORIES[@]}"; do
   log "Limpando o repositório: $REPO_NAME"
 
-  # Listar todas as imagens ordenadas pela data de criação (do mais recente para o mais antigo)
   IMAGES=$(aws ecr describe-images \
     --region $REGION \
     --repository-name $REPO_NAME \
     --query 'imageDetails | sort_by(@, &imagePushedAt) | reverse(@) | [].[imageTag, imageDigest]' \
     --output json)
 
-  # Encontrar a imagem com a tag 'latest' e a penúltima imagem
   LATEST_IMAGE=$(echo "$IMAGES" | jq -r '.[] | select(.[0] == "latest")')
   SECOND_LATEST_IMAGE=$(echo "$IMAGES" | jq -r '.[] | select(.[0] != "latest") | .[0]' | head -n 1)
 
   log "Última imagem (latest): $LATEST_IMAGE"
   log "Penúltima imagem: $SECOND_LATEST_IMAGE"
-
-  # Excluir todas as imagens, exceto 'latest' e a penúltima
+  #so deixa a imagem mais recente
   for image in $(echo "$IMAGES" | jq -r '.[] | select(.[0] != "latest") | .[0]'); do
     if [ "$image" != "$SECOND_LATEST_IMAGE" ]; then
       IMAGE_DIGEST=$(echo "$IMAGES" | jq -r ".[] | select(.[0] == \"$image\") | .[1]")
